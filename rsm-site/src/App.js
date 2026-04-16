@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import "./index.css";
 import Home from "./routes/home";
 import Contact from "./routes/contact";
