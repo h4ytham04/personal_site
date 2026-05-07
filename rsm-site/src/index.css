@@ -1,6 +1,6 @@
 body {
   font-family: 'DM Sans', sans-serif;
-  background: rgb(21, 21, 21);
+  background: rgb(34, 41, 58);
 }
 
 h1, h4, p, a{
@@ -61,21 +61,48 @@ ul {
   transition: all 0.4s ease;
 }
 
-.button-glow-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  border-radius: 0.9em;
-  z-index: -10;
-  filter: blur(0);
-  transition: filter 0.4s ease;
+.home_image {
+  width: 520px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  display: block;
+  margin-left: auto;
+  margin-right: 30px;
+  max-width: 100%;
+  height: auto;
 }
 
-.button-glow-container:hover::before {
-  background: linear-gradient(90deg, #03a9f4, #f441a5);
-  filter: blur(1.2em);
+.home_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertically center text inside the hero row */
+  gap: 8px; /* small gap between heading and subtext */
+  max-width: 400px;
+  font-size: 72pt;
+  padding-left: 10px;
 }
-.button-glow-container:active::before {
-  filter: blur(0.2em);
+
+.subtext {
+  font-size: 24pt;
+  color: #ffffff;
+  margin: 0; /* remove default top margin so it's closer to the heading */
+
+}
+
+.hero {
+  display: flex; /* Enables flexbox */
+  gap: 10px;    /* Adds space between the divs */
+  align-items: center; /* prevent children from stretching vertically */
+}
+.box {
+  flex: 1;      /* Makes both divs take up equal width */
+  padding: 20px;
+  background: lightgray;
+}
+
+.project_image {
+  width: 800px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }

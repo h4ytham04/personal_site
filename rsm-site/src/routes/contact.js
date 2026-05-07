@@ -1,10 +1,12 @@
 //contact page for resume site
 
 import React from 'react';
+import Navbar from '../components/navbar';
 
 const Contact = () => {
   return (
     <div>
+      <Navbar/>
       <h1>This is the contact page</h1>
     </div>
   );
