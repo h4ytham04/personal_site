@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className="header">
         <Link to="/">
-          <h1>Resume Site</h1>
+          <img src={require('../assets/jsr_hz.png')} alt="logo" className="logo"/>
         </Link>
         <div className="hamburger" onClick={handleClick}>
           {click ? (

@@ -62,13 +62,12 @@ ul {
 }
 
 .home_image {
-  width: 520px;
+  width: 100%;
+  max-width: 720px;
   border-radius: 20px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.18);
   display: block;
-  margin-left: auto;
-  margin-right: 30px;
-  max-width: 100%;
+  margin: 0 auto;
   height: auto;
 }
 
@@ -77,32 +76,68 @@ ul {
   flex-direction: column;
   justify-content: center; /* vertically center text inside the hero row */
   gap: 8px; /* small gap between heading and subtext */
-  max-width: 400px;
+  max-width: 520px;
   font-size: 72pt;
-  padding-left: 10px;
+  padding-left: 20%;
 }
 
 .subtext {
   font-size: 24pt;
   color: #ffffff;
   margin: 0; /* remove default top margin so it's closer to the heading */
+}
 
+.home_text h1 {
+  transition: color 0.2s ease;
+}
+
+.home_text h1:hover {
+  color: #4741f4;
 }
 
 .hero {
   display: flex; /* Enables flexbox */
-  gap: 10px;    /* Adds space between the divs */
+  gap: 20px;    /* Adds space between the divs */
   align-items: center; /* prevent children from stretching vertically */
-}
-.box {
-  flex: 1;      /* Makes both divs take up equal width */
-  padding: 20px;
-  background: lightgray;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 40px 20px;
 }
 
 .project_image {
-  width: 800px;
+  width: 100%;
+  max-width: 1000px;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  display: block;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 900px) {
+  .home_text {
+    text-align: center;
+    padding-left: 0;
+    width: 100%;
+    font-size: 56pt;
+  }
+
+  .subtext {
+    font-size: 20pt;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+  }
+
+  .home_text {
+    font-size: 44pt;
+  }
+
+  .subtext {
+    font-size: 18pt;
+  }
 }
