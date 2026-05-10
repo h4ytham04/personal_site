@@ -27,9 +27,16 @@
   height: auto;
   display: inline-block;
   filter:
-    drop-shadow(0 0 10px #030ff4)
-    drop-shadow(0 0 20px #030ff4)
+    drop-shadow(0 0 10px #4741f4)
     drop-shadow(0 0 30px #03a9f4);
+}
+
+.nav-links li a.active {
+  color: #4741f4;
+}
+.nav-links li a:hover {
+  color: #4741f4;
+  transition: color 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 1040px) {

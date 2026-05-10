@@ -113,6 +113,26 @@ ul {
   margin: 0 auto;
 }
 
+.about_text {
+  max-width: 90%;
+  margin: 40px auto;
+  font-size: 24pt;
+  line-height: 1.5;
+  color: #ffffff;
+  background-color: #333333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+
+}
+
+.experience_text {
+  font-size: 48pt;
+  text-align: center;
+  margin: 40px auto 20px auto;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 900px) {
   .home_text {
     text-align: center;

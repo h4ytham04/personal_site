@@ -2,11 +2,13 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const [active, setActive] = useState(false);
 
   return (
     <div className="header">
@@ -22,16 +24,16 @@ const Navbar = () => {
         </div>
         <ul className={click ? "nav-links active" : "nav-links"}>
           <li>
-            <Link to="/" onClick={() => setClick(false)}>Home</Link>
+            <NavLink to="/" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           </li>
           <li>
-            <Link to="/projects" onClick={() => setClick(false)}>Projects</Link>
+            <NavLink to="/projects" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Projects</NavLink>
           </li>
           <li>
-            <Link to="/extras" onClick={() => setClick(false)}>Extras</Link>
+            <NavLink to="/extras" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Extras</NavLink>
           </li>
           <li>
-            <Link to="/contact" onClick={() => setClick(false)}>Contact</Link>
+            <NavLink to="/contact" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Contact</NavLink>
           </li>
         </ul>
     </div>
