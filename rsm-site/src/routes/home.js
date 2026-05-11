@@ -90,35 +90,53 @@ const Home = () => {
 
     <div className="spacer"></div>
 
-    <div className='SkillsContainer'>
+  <div className='skills_container'>
 
-      <h2 className='skills_headers'>Languages</h2>
-        <ul>
+    <div class="card">
+      <h1>Languages</h1>
+  <div class="card__content">
+    <p class="card__title">Languages </p>
+      <ul>
           <li>Python</li>
           <li>JavaScript/TypeScript</li>
           <li>Java</li>
           <li>C++</li>
           <li>SQL</li>
         </ul>
+    </div>
+    </div>
 
-      <h2 className='skills_headers'>Frameworks</h2>
-        <ul>
+    <div class="card">
+      <h1>Frameworks</h1>
+  <div class="card__content">
+    <p class="card__title">Frameworks </p>
+      <ul>
           <li>React</li>
           <li>Node.js</li>
           <li>Expo</li>
           <li>Flask</li>
           <li>Django</li>
         </ul>
+    </div>
+    </div>
 
-      <h2 className='skills_headers'>Cloud & DevOps</h2>
-        <ul>
+    <div class="card">
+      <h1>Cloud & DevOps</h1>
+  <div class="card__content">
+    <p class="card__title">Cloud & DevOps </p>
+      <ul>
           <li>AWS (EC2, S3, Lambda)</li>
           <li>Docker</li>
           <li>Git/GitHub</li>
         </ul>
+    </div>
+    </div>
 
-      <h2 className = 'skills_headers'>Data Science</h2>
-        <ul>
+    <div class="card">
+      <h1>Data Science</h1>
+  <div class="card__content">
+    <p class="card__title">Data Science </p>
+      <ul>
           <li>Pandas</li>
           <li>Pytorch</li>
           <li>TensorFlow</li>
@@ -129,6 +147,9 @@ const Home = () => {
           <li>Seaborn</li>
         </ul>
     </div>
+    </div>
+
+  </div>
 
     <div className='CurrentLearningContainer'></div>
 
