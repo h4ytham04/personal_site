@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 
 const Home = () => {
   const currentYear = new Date().getFullYear();
@@ -14,7 +15,12 @@ const Home = () => {
   }
   
 
-  const [isHovered, setIsHovered] = useState(false);
+  const handleMouseMove = (e) => {
+    const hero = e.currentTarget;
+    const rect = hero.getBoundingClientRect();
+    hero.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    hero.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
 
   useEffect(() => {
     const items = document.querySelectorAll('.experience_item');
@@ -34,24 +40,41 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const fadeItems = document.querySelectorAll('.fade_section');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    fadeItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div>
       <title>Haytham's Site</title>
       <Navbar/>
-      <div className="hero">
-          <div className=" home_text" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div className="hero" onMouseMove={handleMouseMove}>
+          <div className="hero-spotlight" />
+          <div className="home_text">
               <h1>Haytham Zaami</h1>
               <img src={require('../assets/asset.gif')} className="home_gif" />
           </div>
       <img src={require('../assets/haytham_sitting.jpg')} alt="home" className="home_image"/>
     </div>
-    <p className = 'about_text'> {age} year old Computer Science Graduate from Pennsylvania State University. Based out of PA, I've worked on 
+    <p className='about_text fade_section'> {age} year old Computer Science Graduate from Pennsylvania State University. Based out of PA, I've worked on 
                                        fullstack applications, trained machine learning models, worked on research, and 
                                        have experience with a variety of programming languages and frameworks. I'm passionate about 
                                        learning new technologies and applying them to solve real-world problems.
     </p>
 
-    <h1 className='experience_text'>Experience</h1>
+    <h1 className='experience_text fade_section'>Experience</h1>
 
     <div className='experience_container'>
 
@@ -92,10 +115,10 @@ const Home = () => {
 
   <div className='skills_container'>
 
-    <div class="card">
+    <div className="card fade_section">
       <h1>Languages</h1>
-  <div class="card__content">
-    <p class="card__title">Languages </p>
+  <div className="card__content">
+    <p className="card__title">Languages </p>
       <ul>
           <li>Python</li>
           <li>JavaScript/TypeScript</li>
@@ -106,10 +129,10 @@ const Home = () => {
     </div>
     </div>
 
-    <div class="card">
+    <div className="card fade_section">
       <h1>Frameworks</h1>
-  <div class="card__content">
-    <p class="card__title">Frameworks </p>
+  <div className="card__content">
+    <p className="card__title">Frameworks </p>
       <ul>
           <li>React</li>
           <li>Node.js</li>
@@ -120,10 +143,10 @@ const Home = () => {
     </div>
     </div>
 
-    <div class="card">
+    <div className="card fade_section">
       <h1>Cloud & DevOps</h1>
-  <div class="card__content">
-    <p class="card__title">Cloud & DevOps </p>
+  <div className="card__content">
+    <p className="card__title">Cloud & DevOps </p>
       <ul>
           <li>AWS (EC2, S3, Lambda)</li>
           <li>Docker</li>
@@ -132,10 +155,10 @@ const Home = () => {
     </div>
     </div>
 
-    <div class="card">
+    <div className="card fade_section">
       <h1>Data Science</h1>
-  <div class="card__content">
-    <p class="card__title">Data Science </p>
+  <div className="card__content">
+    <p className="card__title">Data Science </p>
       <ul>
           <li>Pandas</li>
           <li>Pytorch</li>
@@ -151,7 +174,35 @@ const Home = () => {
 
   </div>
 
-    <div className='CurrentLearningContainer'></div>
+    <h1 className='experience_text fade_section'>Currently Learning</h1>
+    <div className='CurrentLearningContainer'>
+
+      <div className='learning_item fade_section'>
+        <h2>LLMs &amp; AI Agents</h2>
+        <p>Exploring how large language models work, from transformer architecture and attention mechanisms to fine-tuning, RAG pipelines, and building autonomous AI agents that can reason and act.</p>
+        <p className='workedWith'>Tools: LangChain, OpenAI API, Hugging Face, vector databases</p>
+      </div>
+
+      <div className='learning_item fade_section'>
+        <h2>System Design</h2>
+        <p>Studying how to architect large-scale distributed systems. Things like covering load balancing, caching strategies, database sharding, message queues, and designing for high availability and fault tolerance.</p>
+        <p className='workedWith'>Focus: scalability, reliability, real-world trade-offs</p>
+      </div>
+
+    </div>
+
+    <div className= 'EndButtonContainer'>
+    <button className= 'projects_button' onClick={() => window.location.href = '/projects'}>
+      <span className="text">View Projects</span>
+    </button>
+
+    <button className= 'ToTopButton' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <span className="text">Back to Top</span>
+    </button>
+    </div>
+    
+
+    <Footer />
 
   </div>
 

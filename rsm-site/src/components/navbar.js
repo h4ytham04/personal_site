@@ -15,13 +15,6 @@ const Navbar = () => {
         <Link to="/">
           <img src={require('../assets/jsr_hz.png')} alt="logo" className="logo"/>
         </Link>
-        <div className="hamburger" onClick={handleClick}>
-          {click ? (
-            <FaTimes size={20} style={{ color: "#fff" }}/>
-          ) : (
-            <FaBars size={20} style={{ color: "#fff" }}/>
-          )}
-        </div>
         <ul className={click ? "nav-links active" : "nav-links"}>
           <li>
             <NavLink to="/" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>

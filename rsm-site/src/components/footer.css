@@ -1,0 +1,15 @@
+.footerContainer {
+  margin-top: 80px;
+  padding: 32px 40px;
+  border-top: 1px solid rgba(71, 65, 244, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer_copy {
+  color: #555e7a;
+  font-size: 10pt;
+  margin: 0;
+}
