@@ -90,7 +90,7 @@ const Projects = () => {
       <Navbar />
 
       <div className='projectsIntro fade_section'>
-            <img src={require('../assets/jsr_hz.png')} className="projects_image"/>
+            <img src={require('../assets/jsr_hz.png')} alt="" className="projects_image"/>
             <p className='projectsIntro_text'>A selection of projects showcasing my experience with full-stack development, machine learning, and research.
             These projects demonstrate my ability to apply technical skills to solve real-world problems across various domains.</p>
       </div>

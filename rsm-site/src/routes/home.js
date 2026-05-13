@@ -1,6 +1,6 @@
 //home page for resume site
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 
@@ -62,11 +62,11 @@ const Home = () => {
       <Navbar/>
       <div className="hero" onMouseMove={handleMouseMove}>
           <div className="hero-spotlight" />
-          <div className="home_text">
+          <div className="home_text fade_section">
               <h1>Haytham Zaami</h1>
-              <img src={require('../assets/asset.gif')} className="home_gif" />
+              <img src={require('../assets/asset.gif')} alt="" className="home_gif" />
           </div>
-      <img src={require('../assets/haytham_sitting.jpg')} alt="home" className="home_image"/>
+      <img src={require('../assets/haytham_sitting.jpg')} alt="home" className="home_image fade_section"/>
     </div>
     <p className='about_text fade_section'> {age} year old Computer Science Graduate from Pennsylvania State University. Based out of PA, I've worked on 
                                        fullstack applications, trained machine learning models, worked on research, and 

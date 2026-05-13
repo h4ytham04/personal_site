@@ -1,8 +1,5 @@
 import "./footer.css";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import React from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
