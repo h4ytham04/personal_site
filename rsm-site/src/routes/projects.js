@@ -14,6 +14,14 @@ const projects = [
     highlights: ['Real-time image analysis pipeline', 'AWS Amplify + DynamoDB cloud infra', 'Deployed in active clinical workflows']
   },
   {
+    title: 'CarMax Associate Scheduler',
+    subtitle: 'Next.js · Tailwind CSS · Gemini',
+    description:
+      'Developed a scheduling application for CarMax associates to manage shifts and availability. Implemented AI assistant for scheduling via Gemini integration.',
+    highlights: ['Gemini AI assistant integration', 'Next.js and Tailwind CSS frontend', 'Shift management and availability tracking'],
+    link: 'https://car-max-scheduler.vercel.app/'
+  },
+  {
     title: 'ProxyNCA Metric Learning',
     subtitle: 'Python · PyTorch · NumPy · Matplotlib · Colab',
     description:
@@ -108,7 +116,7 @@ const Projects = () => {
             <ul className='project_highlights'>
               {proj.highlights.map((h, j) => <li key={j}>{h}</li>)}
             </ul>
-            {proj.link && <a className='project_link' href={proj.link} target='_blank' rel='noreferrer'>View on GitHub</a>}
+            {proj.link && <a className='project_link' href={proj.link} target='_blank' rel='noreferrer'>View Project</a>}
           </div>
         ))}
       </div>
