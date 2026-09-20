@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 
 import bg from '../assets/bg.mp4';
 import jsr_hz from '../assets/jsr_hz.png';
-import haytham_sitting from '../assets/haytham_sitting.jpg';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -56,10 +55,10 @@ function Home() {
       <div className="home-overlay">
 
         <div className="home-buttons">
-            <button>career</button>
-            <button>projects</button>
-            <button>contact</button>
-            <button>extras</button>
+            <button onClick={() => navigate('/career')}>career</button>
+            <button onClick={() => navigate('/projects')}>projects</button>
+            <button onClick={() => navigate('/contact')}>contact</button>
+            <button onClick={() => navigate('/extras')}>extras</button>
         </div>
 
 
@@ -67,10 +66,6 @@ function Home() {
 
 
     </div>
-
-    <section className="about-section">
-      <img src={haytham_sitting} alt="Haytham sitting on a cliff at sunset" className="sitting-image" />
-    </section>
     </>
 
   );

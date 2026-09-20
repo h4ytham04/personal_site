@@ -36,34 +36,16 @@ body {
   z-index: 1;
   max-width: 100%;
   max-height: 100%;
-  animation: float 5s ease-in-out infinite;
   border-radius: 10px;
   pointer-events: auto;
   transition: filter 300ms ease;
+  opacity: 0;
+  animation: buttonsFadeIn 1.2s ease-out 2.4s forwards, float 5s ease-in-out infinite 2.4s;
 }
 
 .home-image--hover {
   cursor: pointer;
   filter: drop-shadow(0 4px 18px rgb(67, 95, 255));
-}
-
-/* revealed by scrolling past the 100vh hero, sits in normal document flow */
-.about-section {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #131313;
-  padding: 60px 0;
-  box-sizing: border-box;
-}
-
-.sitting-image {
-  max-width: min(90%, 900px);
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes fadeIn {
@@ -148,12 +130,6 @@ body {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
   }
-}
-
-
-.haytham_sitting {
-  transform: translate(-50%, -50%);
-  animation: float 4s ease-in-out infinite;
 }
 
 ::-webkit-scrollbar {
