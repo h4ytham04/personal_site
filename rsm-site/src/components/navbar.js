@@ -1,33 +1,21 @@
 import "./navbar.css";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 
 const Navbar = () => {
-
-  const [click, setClick] = useState(false);
-
   return (
-    <div className="header">
-        <Link to="/">
-          <img src={require('../assets/jsr_hz.png')} alt="logo" className="logo"/>
-        </Link>
-        <ul className={click ? "nav-links active" : "nav-links"}>
-          <li>
-            <NavLink to="/" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/projects" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Projects</NavLink>
-          </li>
-          <li>
-            <NavLink to="/extras" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Extras</NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" onClick={() => setClick(false)} className={({ isActive }) => isActive ? "active" : ""}>Contact</NavLink>
-          </li>
+    <header className="header">
+      <nav>
+        <ul className="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/Career">Career</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/extras">extras</a></li>
         </ul>
-    </div>
-  )
-}
+      </nav>
+      <div className="hamburger">☰</div>
+    </header>
+  );
+};
 
-export default Navbar
+export default Navbar;
