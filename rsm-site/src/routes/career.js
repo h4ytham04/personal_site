@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaGraduationCap, FaHammer, FaSuitcase, FaFile } from 'react-icons/fa';
 import "./career.css";
 
 import bg from '../assets/bg.mp4';
@@ -7,15 +8,18 @@ import haytham_sitting from '../assets/haytham_sitting.jpg';
 import psu from '../assets/psu.png';
 import ship from '../assets/ship.png';
 
-// --- EDIT ME: one card per career category, shown in the left-hand list ---
+import carmax from '../assets/carmax.png';
+import uspto from '../assets/uspto.jpg';
+
+
 const CAREER_ITEMS = [
-  { id: 'education', badge: '', title: 'EDUCATION', subtitle: 'Pennsylvania State University', rank: 1 },
-  { id: 'experience', badge: '', title: 'EXPERIENCE', subtitle: 'CarMax · Penn State Health', rank: 2 },
-  { id: 'skills', badge: '', title: 'SKILLS', subtitle: 'Languages, Tools & Specializations', rank: 3 },
-  { id: 'projects', badge: '', title: 'PROJECTS', subtitle: 'Retail Transaction Analysis', rank: 4 },
+  { id: 'education', badge: <FaGraduationCap />, title: 'EDUCATION', subtitle: 'Pennsylvania State University · Shippensburg University', rank: 1 },
+  { id: 'experience', badge: <FaSuitcase />, title: 'EXPERIENCE', subtitle: 'USPTO · CarMax · Penn State Health', rank: 2 },
+  { id: 'skills', badge: <FaHammer/>, title: 'SKILLS', subtitle: 'Languages, Tools & Specializations', rank: 3 },
+  { id: 'research', badge: <FaFile />, title: 'RESEARCH', subtitle: 'Retail Transaction Analysis', rank: 4 },
 ];
 
-// --- EDIT ME: detail panel content shown on the right for whichever card is selected ---
+
 const CAREER_DETAILS = {
   education: {
     heading: 'B.S. Computer Science',
@@ -34,14 +38,14 @@ const CAREER_DETAILS = {
     heading: 'EXPERIENCE LOG',
     progress: '3/3',
     rows: [
-      { index: '01', title: 'Business Operations Associate — CarMax', status: 'Nov 2024 – Present' },
-      { index: '02', title: 'Healthcare Application Developer — Penn State Health', status: 'Oct 2025 – May 2026' },
-      { index: '03', title: 'Sales Consultant — CarMax', status: 'Jul 2024 – Nov 2024' },
+      { index: '01', title: 'Patent Examiner (Computer Science)', status: 'Oct 2026 – Present' },
+      { index: '02', title: 'Business Operations Associate — CarMax', status: 'Nov 2024 – Present' },
+      { index: '03', title: 'Healthcare Application Developer — Penn State Health', status: 'Oct 2025 – May 2026' },
     ],
     bullets: [
+      'Examined and evaluated patent applications in the field of computer science, ensuring compliance with legal and technical standards.',
       'Architected AWS backend (Amplify, DynamoDB, Lambda) with role-based access for clinician/patient workflows.',
       'Used Power BI to identify workflow bottlenecks, resolving 5-10 incomplete cases weekly.',
-      'Guided customers through full purchasing journeys including financing and documentation.',
     ],
   },
   skills: {
@@ -57,7 +61,7 @@ const CAREER_DETAILS = {
       'Requirements gathering and stakeholder collaboration from healthcare to retail.',
     ],
   },
-  projects: {
+  research: {
     heading: 'PROJECT ARCHIVE',
     progress: '1/1',
     rows: [
@@ -101,22 +105,39 @@ function Career() {
     setIsSittingExpanded((v) => !v);
   };
 
-  // arrow keys move the selection, escape/backspace returns to the hero (or closes the zoomed portrait first)
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'ArrowUp') setActive((i) => Math.max(0, i - 1));
-      if (e.key === 'ArrowDown') setActive((i) => Math.min(CAREER_ITEMS.length - 1, i + 1));
-      if (e.key === 'Escape' || e.key === 'Backspace') {
-        if (isSittingExpanded) toggleSittingExpand();
-        else navigate('/');
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [navigate, isSittingExpanded]);
+     const handleNavigation = (e) => {
+    // 1. Handle Scroll Up OR Arrow Up
+    if (e.key === 'ArrowUp' || e.deltaY < 0) {
+      setActive((i) => Math.max(0, i - 1));
+    }
+    
+    // 2. Handle Scroll Down OR Arrow Down
+    if (e.key === 'ArrowDown' || e.deltaY > 0) {
+      setActive((i) => Math.min(CAREER_ITEMS.length - 1, i + 1));
+    }
+    
+    // 3. Handle Back/Escape (Only applies to keyboard events)
+    if (e.key === 'Escape' || e.key === 'Backspace') {
+      if (isSittingExpanded) toggleSittingExpand();
+      else navigate('/');
+    }
+  };
+
+  // Attach to BOTH event types
+  window.addEventListener('keydown', handleNavigation);
+  window.addEventListener('wheel', handleNavigation);
+
+  // Clean up listeners when component unmounts or dependencies change
+  return () => {
+    window.removeEventListener('keydown', handleNavigation);
+    window.removeEventListener('wheel', handleNavigation);
+  };
+}, [isSittingExpanded, CAREER_ITEMS.length]); // Add your dependencies here;
 
   const detail = CAREER_DETAILS[CAREER_ITEMS[active].id];
   const isEducationActive = CAREER_ITEMS[active].id === 'education';
+  const isExperienceActive = CAREER_ITEMS[active].id === 'experience';
 
   return (
     <div className="career-page">
@@ -183,6 +204,15 @@ function Career() {
         <div className={`career-edu-emblem${isEducationActive && mounted ? ' career-edu-emblem--visible' : ''}`}>
           <img src={psu} alt="Penn State University logo" className="career-edu-emblem-img" />
           <img src={ship} alt="Shippensburg University logo" className="career-edu-emblem-img" />
+        </div>
+
+        <div className={`career-edu-emblem${isExperienceActive && mounted ? ' career-edu-emblem--visible' : ''}`}>
+          <img src={uspto} alt="United States Patent and Trademark Office logo" className="career-edu-emblem-img" />
+          <img src={carmax} alt="CarMax logo" className="career-edu-emblem-img" />
+          <img src={psu} alt="Penn State Health logo" className="career-edu-emblem-img" />
+
+          {/* these are appearing too large to fit all three logos in the available space, have to scale them down using CSS */}
+          
         </div>
 
         <div

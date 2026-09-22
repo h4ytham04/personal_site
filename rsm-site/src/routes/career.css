@@ -321,12 +321,14 @@
   pointer-events: auto;
 }
 
-/* ship + psu badges stacked together (psu above ship), only shown while the education card is selected */
+/* ship + psu badges stacked together (psu above ship), only shown while the education card is selected \
+   have to also add if statement if stacking more than 2 images, adjust the gap accordingly and make images smaller */
+   
 .career-edu-emblem {
   position: absolute;
   left: 50%;
   bottom: 5vh;
-  transform: translateX(-50%) translateY(0%);
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -335,13 +337,23 @@
   pointer-events: none;
   transition: opacity 0.45s ease;
 }
+
 .career-edu-emblem--visible {
   opacity: 1;
 }
+
 .career-edu-emblem-img {
-  width: 500px;
-  max-width: 30vw;
+  max-width: 20vw;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px #4741f4) drop-shadow(0 0 30px #03a9f4);
+  filter: drop-shadow(0 0 10px #4741f4) drop-shadow(0 0 30px #031ff4);
+}
+
+/* If 3+ images, shrink ALL of them and reduce gap */
+.career-edu-emblem:has(.career-edu-emblem-img:nth-child(n+3)) .career-edu-emblem-img {
+  max-width: 16vw;
+}
+
+.career-edu-emblem:has(.career-edu-emblem-img:nth-child(n+3)) {
+  gap: 25px;
 }
