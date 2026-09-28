@@ -11,6 +11,13 @@ import ship from '../assets/ship.png';
 import carmax from '../assets/carmax.png';
 import uspto from '../assets/uspto.jpg';
 
+import python from '../assets/python.png';
+import js from '../assets/js.png';
+import paper from '../assets/2541988.png';
+
+import hz_rsrch_paper from '../assets/HZ_RSRCH_PAPER.pdf';
+import PROXYNCA_RSRCH_PAPER from '../assets/PROXYNCA_RSRCH_PAPER.pdf';
+
 
 const CAREER_ITEMS = [
   { id: 'education', badge: <FaGraduationCap />, title: 'EDUCATION', subtitle: 'Pennsylvania State University · Shippensburg University', rank: 1 },
@@ -54,23 +61,28 @@ const CAREER_DETAILS = {
     rows: [
       { index: '01', title: 'Languages', status: 'Python · SQL · Java · TS · JS' },
       { index: '02', title: 'Tools & Platforms', status: 'Power BI · AWS · Git · DBeaver · Linux' },
-      { index: '03', title: 'Specializations', status: 'Data Viz · REST APIs · Automation · SDLC' },
+      { index: '03', title: 'Specializations', status: 'Machine Learning · REST APIs · Automation · SDLC' },
+      { index: '04', title: 'Frameworks', status: 'React · React Native · Node.js · Flask · Django · Expo' },
+      { index: '05', title: 'Extras', status: 'Photoshop · Figma · Microsoft Office · Davinci Resolve' },
     ],
     bullets: [
-      'Comfortable across the stack: backend APIs, data pipelines, and BI dashboards.',
-      'Requirements gathering and stakeholder collaboration from healthcare to retail.',
-    ],
+  'Full-stack development, cloud systems, REST APIs, databases, and data pipelines across several coding languages and frameworks.',
+  'Machine learning, BI, automation, data validation, and analytics using SQL, Power BI, Python, and modern data tooling.',
+  'Requirements gathering, stakeholder collaboration, SDLC, testing, Git, Linux, and technical documentation across healthcare, retail, and software projects.',
+  'Creative + productivity toolkit spanning Figma, Photoshop, DaVinci Resolve and Microsoft Office.'
+],
   },
   research: {
-    heading: 'PROJECT ARCHIVE',
+    heading: 'Research ARCHIVE',
     progress: '1/1',
     rows: [
-      { index: '01', title: 'Retail Transaction Pattern Analysis', status: 'Mar 2026' },
+      { index: '01', title: 'ProxyNCA Machine Learning Paper', status: 'April 2026' },
+      { index: '02', title: 'GroEL-GroES State Transition Analysis Paper', status: 'Dec 2025' },
     ],
     bullets: [
-      'Mined 500,000+ retail transactions for high-demand product combos and regional trends (UK/Germany).',
-      'Surfaced dynamic pricing and bundling recommendations from association rule mining.',
-    ],
+  'Built and evaluated contrastive learning models with SimCLR and ProxyNCA using ResNet-18/50, achieving 91.34% Recall@10 on the CUB-200-2011 bird classification dataset.',
+  'Modeled GroEL-GroES protein dynamics with Anisotropic Network Models, analyzing 14 chains through mode overlap and RMSD to characterize T-to-R conformational transitions and asymmetric motion.',
+],
   },
 };
 
@@ -124,20 +136,22 @@ function Career() {
     }
   };
 
-  // Attach to BOTH event types
+
   window.addEventListener('keydown', handleNavigation);
   window.addEventListener('wheel', handleNavigation);
 
-  // Clean up listeners when component unmounts or dependencies change
+
   return () => {
     window.removeEventListener('keydown', handleNavigation);
     window.removeEventListener('wheel', handleNavigation);
   };
-}, [isSittingExpanded, CAREER_ITEMS.length]); // Add your dependencies here;
+}, [isSittingExpanded, CAREER_ITEMS.length]);
 
   const detail = CAREER_DETAILS[CAREER_ITEMS[active].id];
   const isEducationActive = CAREER_ITEMS[active].id === 'education';
   const isExperienceActive = CAREER_ITEMS[active].id === 'experience';
+  const isSkillsActive = CAREER_ITEMS[active].id === 'skills';
+  const isResearchActive = CAREER_ITEMS[active].id === 'research';
 
   return (
     <div className="career-page">
@@ -213,6 +227,23 @@ function Career() {
 
           {/* these are appearing too large to fit all three logos in the available space, have to scale them down using CSS */}
           
+        </div>
+
+        <div className={`career-edu-emblem${isSkillsActive && mounted ? ' career-edu-emblem--visible' : ''}`}>
+          <img src={python} alt="Python logo" className="career-edu-emblem-img" />
+          <img src={js} alt="JavaScript logo" className="career-edu-emblem-img" />
+        </div>
+
+        <div className={`career-edu-emblem${isResearchActive && mounted ? ' career-edu-emblem--visible' : ''}`}>
+          <div className="career-paper-item" onClick={() => window.open(PROXYNCA_RSRCH_PAPER, '_blank')} title="Click to view: ProxyNCA Machine Learning Paper">
+            <img src={paper} alt="ProxyNCA research paper" className="career-edu-emblem-img" />
+            <div className="career-paper-hint">View ProxyNCA Paper</div>
+          </div>
+
+          <div className="career-paper-item" onClick={() => window.open(hz_rsrch_paper, '_blank')} title="Click to view: GroEL-GroES State Transition Analysis Paper">
+            <img src={paper} alt="GroEL-GroES research paper" className="career-edu-emblem-img" />
+            <div className="career-paper-hint">View GroEL-GroES Paper</div>
+          </div>
         </div>
 
         <div
