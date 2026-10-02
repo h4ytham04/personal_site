@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 
 import bg from '../assets/bg.mp4';
 import jsr_hz from '../assets/jsr_hz.png';
+import CalendarHud from '../components/CalendarHud';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -41,6 +42,7 @@ function Home() {
       <video autoPlay loop muted playsInline>
         <source src={bg} type="video/mp4" />
       </video>
+      <CalendarHud />
       <img
         ref={imgRef}
         src={jsr_hz}

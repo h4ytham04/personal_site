@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaGraduationCap, FaHammer, FaSuitcase, FaFile } from 'react-icons/fa';
+import { FaGraduationCap, FaHammer, FaSuitcase, FaFile, FaStar } from 'react-icons/fa';
 import "./career.css";
+import useSwipe, { isCompactScreen, revealActive } from '../components/useSwipe';
 
 import bg from '../assets/bg.mp4';
 import haytham_sitting from '../assets/haytham_sitting.jpg';
@@ -24,6 +25,7 @@ const CAREER_ITEMS = [
   { id: 'experience', badge: <FaSuitcase />, title: 'EXPERIENCE', subtitle: 'USPTO · CarMax · Penn State Health', rank: 2 },
   { id: 'skills', badge: <FaHammer/>, title: 'SKILLS', subtitle: 'Languages, Tools & Specializations', rank: 3 },
   { id: 'research', badge: <FaFile />, title: 'RESEARCH', subtitle: 'Retail Transaction Analysis', rank: 4 },
+  { id: 'stats', badge: <FaStar />, title: 'SOCIAL STATS', subtitle: 'Academics · Charm · Courage', rank: 5 },
 ];
 
 
@@ -84,6 +86,21 @@ const CAREER_DETAILS = {
   'Modeled GroEL-GroES protein dynamics with Anisotropic Network Models, analyzing 14 chains through mode overlap and RMSD to characterize T-to-R conformational transitions and asymmetric motion.',
 ],
   },
+  // row.value (0-100) fills a stat bar behind the row
+  stats: {
+    heading: 'SOCIAL STATS',
+    progress: '3/3',
+    rows: [
+      { index: '01', title: 'Academics', status: 'LV 5', value: 90 },
+      { index: '02', title: 'Charm', status: 'LV 4', value: 75 },
+      { index: '03', title: 'Courage', status: 'LV 4', value: 80 },
+    ],
+    bullets: [
+      'ACADEMICS: B.S. Computer Science, 3.60 GPA, 5x Dean’s List, and published research.',
+      'CHARM: Newspaper contributor, MSA graphic designer, and stakeholder-facing work at CarMax.',
+      'COURAGE: Hackathons, a clinical app in production, and a move into patent examination.',
+    ],
+  },
 };
 
 function Career() {
@@ -119,6 +136,9 @@ function Career() {
 
   useEffect(() => {
      const handleNavigation = (e) => {
+    // touch devices scroll the page instead of stepping through the list
+    if (e.type === 'wheel' && isCompactScreen()) return;
+
     // 1. Handle Scroll Up OR Arrow Up
     if (e.key === 'ArrowUp' || e.deltaY < 0) {
       setActive((i) => Math.max(0, i - 1));
@@ -147,6 +167,12 @@ function Career() {
   };
 }, [isSittingExpanded, CAREER_ITEMS.length]);
 
+  useSwipe(
+    () => setActive((i) => Math.max(0, i - 1)),
+    () => setActive((i) => Math.min(CAREER_ITEMS.length - 1, i + 1)),
+  );
+  useEffect(() => revealActive('.career-card-wrap.active'), [active]);
+
   const detail = CAREER_DETAILS[CAREER_ITEMS[active].id];
   const isEducationActive = CAREER_ITEMS[active].id === 'education';
   const isExperienceActive = CAREER_ITEMS[active].id === 'experience';
@@ -158,7 +184,7 @@ function Career() {
       <video className="career-video" src={bg} autoPlay loop muted playsInline />
 
       <div className="career-overlay">
-        <div className="career-stack">
+        <div className="career-stack" data-noswipe>
           <div className={`career-list-tag${mounted ? ' mounted' : ''}`}>CAREER</div>
 
           {CAREER_ITEMS.map((item, index) => (
@@ -189,15 +215,26 @@ function Career() {
         </div>
 
         <div className={`career-detail-panel${mounted ? ' mounted' : ''}`}>
-          <div className="career-detail-top">
+          <div className="career-detail-top" key={CAREER_ITEMS[active].id}>
+            <div className="career-detail-banner-icon">{CAREER_ITEMS[active].badge}</div>
             <div className="career-detail-top-index">{CAREER_ITEMS[active].badge}</div>
             <div className="career-detail-top-title">{detail.heading}</div>
             <div className="career-detail-top-progress">{detail.progress}</div>
           </div>
 
           <div className="career-detail-list">
-            {detail.rows.map((row) => (
-              <div className="career-detail-row" key={row.index}>
+            {detail.rows.map((row, i) => (
+              <div
+                className="career-detail-row"
+                key={`${CAREER_ITEMS[active].id}-${row.index}`}
+                style={{ animationDelay: `${i * 90}ms` }}
+              >
+                {row.value !== undefined && (
+                  <div
+                    className="career-detail-row-bar"
+                    style={{ width: `${row.value}%`, animationDelay: `${300 + i * 90}ms` }}
+                  />
+                )}
                 <div className="career-detail-row-index">{row.index}</div>
                 <div className="career-detail-row-title">{row.title}</div>
                 <div className="career-detail-status">{row.status}</div>
@@ -244,6 +281,11 @@ function Career() {
             <img src={paper} alt="GroEL-GroES research paper" className="career-edu-emblem-img" />
             <div className="career-paper-hint">View GroEL-GroES Paper</div>
           </div>
+        </div>
+
+        <div className={`career-hints${mounted ? ' mounted' : ''}`}>
+          <span><b>↑↓</b> SELECT</span>
+          <span><b>ESC</b> BACK</span>
         </div>
 
         <div

@@ -1,0 +1,192 @@
+/* overrides on top of projects.css so seven cards fit on one screen */
+.contact-stack .projects-card {
+  height: clamp(54px, 8vh, 74px);
+}
+.contact-stack .projects-title {
+  font-size: clamp(26px, 3.6vh, 36px);
+}
+.contact-stack .projects-rank-number {
+  font-size: clamp(26px, 3.6vh, 36px);
+}
+.contact-stack .projects-badge {
+  top: 4px;
+  width: 44px;
+  height: 46px;
+}
+.contact-stack .projects-badge-text {
+  font-size: 20px;
+}
+.contact-stack .projects-card-inner {
+  padding-top: 4px;
+}
+.contact-stack .projects-subtitle-bar {
+  height: 20px;
+  bottom: 6px;
+}
+.contact-stack .projects-subtitle {
+  font-size: 17px;
+}
+
+/* big glowing platform icon in the center, clickable */
+.contact-emblem {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: min(18vw, 260px);
+  color: #9fb8ff;
+  filter: drop-shadow(0 0 10px #4741f4) drop-shadow(0 0 30px #031ff4);
+  cursor: pointer;
+  animation: contact-emblem-in 0.5s ease backwards;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.contact-emblem:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  filter: drop-shadow(0 0 14px #4741f4) drop-shadow(0 0 40px #031ff4);
+}
+
+/* appears on hover, same pill as the career paper hint */
+.contact-emblem-hint {
+  margin-top: 12px;
+  padding: 4px 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: rgba(4, 16, 244, 0.6);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.contact-emblem:hover .contact-emblem-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* floating logo in the space left under the seven cards; height shrinks as the card stack grows */
+.contact-logo {
+  position: absolute;
+  left: 1.5vw;
+  bottom: 1vh;
+  height: clamp(60px, calc(91vh - 205px - 7 * clamp(54px, 8vh, 74px)), 200px);
+  width: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px #4741f4);
+  animation: contact-float 5s ease-in-out infinite;
+}
+
+@keyframes contact-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes contact-emblem-in {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.contact-actions {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.contact-copy {
+  border: none;
+  cursor: pointer;
+  background: rgba(125, 212, 252, 0.22);
+  color: #7dd4fc;
+}
+.contact-copy:hover {
+  background: #7dd4fc;
+  color: #06103b;
+}
+
+.contact-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 8vh;
+  padding: 6px 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  letter-spacing: 3px;
+  color: #fff;
+  background: #2f3af0;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 14px 100%);
+  box-shadow: 0 0 30px #4741f4;
+  z-index: 20;
+  animation: contact-toast 1.5s ease both;
+}
+
+/* full-screen splash for the "allout" easter egg */
+.contact-allout {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  animation: contact-allout-bg 2.2s ease both;
+}
+.contact-allout-band {
+  width: 120%;
+  padding: 1vh 0;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16vw;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: #2f3af0;
+  box-shadow: 0 0 60px #4741f4;
+  transform: rotate(-6deg);
+  animation: contact-allout-band 2.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes contact-toast {
+  0% { opacity: 0; transform: translateX(-50%) translateY(14px); }
+  12%, 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+}
+@keyframes contact-allout-bg {
+  0%, 85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes contact-allout-band {
+  0% { transform: translateX(-110%) rotate(-6deg) scale(1.4); }
+  25% { transform: translateX(0) rotate(-6deg) scale(1); }
+  85% { transform: translateX(0) rotate(-6deg) scale(1.04); }
+  100% { transform: translateX(110%) rotate(-6deg) scale(1); }
+}
+
+@media (max-width: 900px) {
+  .contact-stack .projects-card {
+    height: 70px;
+  }
+  .contact-emblem {
+    position: relative;
+    left: auto;
+    top: auto;
+    order: 4;
+    align-self: center;
+    transform: none;
+    font-size: 120px;
+    animation: none;
+  }
+  .contact-emblem:hover {
+    transform: none;
+  }
+  .contact-logo {
+    display: none;
+  }
+  .contact-toast {
+    position: fixed;
+    bottom: 70px;
+  }
+}

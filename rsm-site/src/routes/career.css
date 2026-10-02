@@ -64,7 +64,7 @@
 
 .career-card {
   position: relative;
-  height: 124px;
+  height: clamp(92px, 12vh, 124px);
   background: #10143a;
   clip-path: polygon(0 0, 97% 0, 100% 100%, 3% 100%);
   box-shadow: 0 8px 0 rgba(5, 13, 59, 0.85);
@@ -118,7 +118,7 @@
 
 .career-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 64px;
+  font-size: clamp(44px, 6.6vh, 64px);
   line-height: 0.9;
   color: #9fb8ff;
   transition: color 0.22s ease;
@@ -142,7 +142,7 @@
 }
 .career-rank-number {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 54px;
+  font-size: clamp(38px, 5.6vh, 54px);
   line-height: 0.82;
   color: #9fb8ff;
   transition: color 0.22s ease;
@@ -196,11 +196,32 @@
 }
 
 .career-detail-top {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 60px 1fr auto;
   align-items: center;
   gap: 12px;
-  min-height: 80px;
+  min-height: 100px;
+  margin: -20px -22px 0;
+  padding: 0 24px 0 22px;
+  background-image: linear-gradient(115deg, #1b1f6b 0%, #0b0d2a 70%);
+  border-bottom: 3px solid #4741f4;
+  animation: career-fade-in 0.45s ease both;
+}
+.career-detail-top > :not(.career-detail-banner-icon) {
+  position: relative;
+  z-index: 1;
+}
+.career-detail-banner-icon {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  font-size: 150px;
+  display: flex;
+  color: rgba(125, 212, 252, 0.14);
+  transform: translateY(-50%) rotate(-10deg);
+  pointer-events: none;
 }
 .career-detail-top-index {
   font-family: 'Bebas Neue', sans-serif;
@@ -235,6 +256,7 @@
   padding: 0 12px;
   background: rgba(12, 16, 60, 0.96);
   clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  animation: career-row-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .career-detail-row-index {
   font-family: 'Bebas Neue', sans-serif;
@@ -279,6 +301,41 @@
   font-size: 32px;
   line-height: 1.2;
   color: #eaf1ff;
+}
+
+/* controls hint, bottom-right under the detail panel */
+.career-hints {
+  position: absolute;
+  right: 4.5vw;
+  bottom: 2.5vh;
+  display: flex;
+  gap: 22px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #9fb8ff;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.5s;
+}
+.career-hints.mounted {
+  opacity: 1;
+}
+.career-hints b {
+  font-weight: 400;
+  color: #06103b;
+  background: #7dd4fc;
+  padding: 2px 10px;
+  margin-right: 6px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+}
+
+@keyframes career-fade-in {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes career-row-in {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 
@@ -349,6 +406,13 @@
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 10px #4741f4) drop-shadow(0 0 30px #031ff4);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* direct children only, paper items already scale as a whole */
+.career-edu-emblem > .career-edu-emblem-img:hover {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px #4741f4) drop-shadow(0 0 40px #031ff4);
 }
 
 /* If 3+ images, shrink ALL of them and reduce gap */
@@ -397,4 +461,145 @@
 .career-paper-item:hover .career-paper-hint {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* stat bar fills from the left behind a row, used by the social stats panel */
+.career-detail-row {
+  position: relative;
+}
+.career-detail-row > :not(.career-detail-row-bar) {
+  position: relative;
+  z-index: 1;
+}
+.career-detail-row-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, rgba(71, 65, 244, 0.35), rgba(125, 212, 252, 0.55));
+  border-right: 3px solid #7dd4fc;
+  transform-origin: left center;
+  animation: career-bar-fill 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes career-bar-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* stacked touch layout: card strip scrolls sideways, panel and extras flow below */
+@media (max-width: 900px) {
+  .career-page {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  .career-video {
+    position: fixed;
+  }
+  .career-overlay {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-sizing: border-box;
+    padding: 76px 14px 90px;
+  }
+
+  .career-stack {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    order: 1;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 4px 12px 18px;
+    scroll-snap-type: x mandatory;
+  }
+  .career-list-tag {
+    display: none;
+  }
+  .career-card-wrap {
+    flex: 0 0 min(80vw, 320px);
+    scroll-snap-align: center;
+  }
+  .career-card {
+    height: 96px;
+  }
+  .career-title {
+    font-size: 38px;
+  }
+  .career-rank-label {
+    font-size: 16px;
+  }
+  .career-rank-number {
+    font-size: 36px;
+  }
+  .career-subtitle-bar {
+    height: 24px;
+  }
+  .career-subtitle {
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .career-detail-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    min-height: 0;
+    order: 2;
+  }
+  .career-detail-top-title {
+    font-size: 40px;
+  }
+  .career-detail-top-progress {
+    font-size: 32px;
+  }
+  .career-detail-row {
+    grid-template-columns: 36px 1fr auto;
+  }
+  .career-detail-row-title {
+    font-size: 24px;
+  }
+  .career-detail-status {
+    font-size: 16px;
+  }
+  .career-detail-bullet {
+    font-size: 22px;
+  }
+
+  .career-edu-emblem {
+    display: none;
+  }
+  .career-edu-emblem--visible {
+    display: flex;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    order: 3;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+  .career-edu-emblem-img {
+    max-width: 28vw !important;
+  }
+
+  .haytham_sitting {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    order: 4;
+    max-width: 60vw;
+    margin: 0 auto;
+  }
+
+  .career-hints {
+    display: none;
+  }
 }

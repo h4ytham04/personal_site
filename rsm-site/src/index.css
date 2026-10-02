@@ -143,3 +143,198 @@ body {
     transform: translate(-50%, -50%) translateY(-40px);
   }
 }
+
+/* page transition: two skewed bands slash across the screen, route swaps while covered */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+.page-transition.covering,
+.page-transition.uncovering {
+  visibility: visible;
+  pointer-events: auto;
+}
+.page-transition-band {
+  position: absolute;
+  top: -5%;
+  bottom: -5%;
+  left: -15%;
+  width: 130%;
+  background: #2f3af0;
+  transform: translateX(-110%) skewX(-14deg);
+}
+.page-transition-band--accent {
+  background: #7dd4fc;
+}
+.page-transition.covering .page-transition-band {
+  animation: pt-in 0.38s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+.page-transition.covering .page-transition-band--accent {
+  animation-duration: 0.3s;
+}
+.page-transition.uncovering .page-transition-band {
+  animation: pt-out 0.45s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+.page-transition.uncovering .page-transition-band--accent {
+  animation-delay: 0.06s;
+}
+@keyframes pt-in {
+  from { transform: translateX(-110%) skewX(-14deg); }
+  to { transform: translateX(0) skewX(-14deg); }
+}
+@keyframes pt-out {
+  from { transform: translateX(0) skewX(-14deg); }
+  to { transform: translateX(110%) skewX(-14deg); }
+}
+
+/* dark hour: rotate the blue palette to green. applied per page root so fixed elements keep working */
+.home-container,
+.projects-page,
+.career-page,
+.extras-container,
+.extras-content,
+.header,
+.page-transition {
+  transition: filter 0.6s ease;
+}
+html[data-theme='dark-hour'] .home-container,
+html[data-theme='dark-hour'] .projects-page,
+html[data-theme='dark-hour'] .career-page,
+html[data-theme='dark-hour'] .extras-container,
+html[data-theme='dark-hour'] .extras-content,
+html[data-theme='dark-hour'] .header,
+html[data-theme='dark-hour'] .page-transition {
+  filter: hue-rotate(-95deg) saturate(1.15);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 22px 5px 14px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #06103b;
+  background: #7dd4fc;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.theme-toggle:hover {
+  background: #fff;
+}
+html[data-theme='dark-hour'] .theme-toggle {
+  background: #3dff9a;
+}
+html[data-theme='dark-hour'] .theme-toggle:hover {
+  background: #fff;
+}
+
+/* P3-style calendar in the top-left of the home screen */
+.home-hud {
+  position: absolute;
+  top: 3vh;
+  left: 2.5vw;
+  z-index: 2;
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  color: #fff;
+  text-shadow: 4px 4px 0 #2f3af0;
+}
+.home-hud-date {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: clamp(64px, 11vh, 120px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+}
+.home-hud-slash {
+  color: #7dd4fc;
+}
+.home-hud-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  text-shadow: none;
+}
+.home-hud-weekday,
+.home-hud-time {
+  padding: 2px 18px 2px 12px;
+  font-size: clamp(22px, 3.4vh, 32px);
+  letter-spacing: 3px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+.home-hud-weekday {
+  color: #06103b;
+  background: #7dd4fc;
+}
+.home-hud-time {
+  color: #fff;
+  background: #2f3af0;
+}
+.home-hud-moon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-shadow: none;
+  color: #9fb8ff;
+}
+.home-hud-moon-svg {
+  width: 40px;
+  height: 40px;
+}
+.home-hud-moon-dark {
+  fill: #0b0d2a;
+  stroke: #7dd4fc;
+  stroke-width: 1.5;
+}
+.home-hud-moon-lit {
+  fill: #eaf1ff;
+}
+
+@media (max-width: 900px) {
+  .theme-toggle {
+    top: auto;
+    bottom: 14px;
+  }
+
+  .home-hud {
+    top: 70px;
+    left: 5vw;
+  }
+  .home-hud-date {
+    font-size: 56px;
+  }
+
+  .home-image {
+    top: 34%;
+    left: 50%;
+    max-width: 60%;
+    max-height: 30%;
+  }
+
+  .home-buttons {
+    top: 72%;
+    left: 0;
+    right: 0;
+    align-items: center;
+  }
+  .home-buttons button {
+    padding: 8px 14px;
+    font-size: 3.6rem;
+  }
+}

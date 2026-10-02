@@ -78,3 +78,16 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 900px) {
+  .extras-overlay {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .steam_button {
+    font-size: 1.4rem;
+  }
+  .extras-content__title {
+    font-size: 2.4rem;
+  }
+}
