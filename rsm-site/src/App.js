@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./index.css";
 import {Routes, Route, useLocation } from "react-router-dom";
-import { FaMoon, FaSun } from 'react-icons/fa';
 import Home from './routes/home';
 import Career from './routes/career';
 import Extras from './routes/extras';
@@ -14,7 +13,6 @@ function App() {
   // routes render from displayLocation so the old page stays until the slash covers the screen
   const [displayLocation, setDisplayLocation] = useState(location);
   const [phase, setPhase] = useState('idle');
-  const [darkHour, setDarkHour] = useState(() => localStorage.getItem('darkHour') === '1');
 
   useEffect(() => {
     if (location.pathname === displayLocation.pathname) return undefined;
@@ -35,11 +33,6 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = darkHour ? 'dark-hour' : 'day';
-    localStorage.setItem('darkHour', darkHour ? '1' : '0');
-  }, [darkHour]);
-
   const noNavbar = displayLocation.pathname === "/";
   return (
     <>
@@ -56,16 +49,6 @@ function App() {
         <div className="page-transition-band page-transition-band--accent" />
         <div className="page-transition-band" />
       </div>
-
-      <button
-        type="button"
-        className="theme-toggle"
-        aria-pressed={darkHour}
-        onClick={() => setDarkHour((v) => !v)}
-      >
-        {darkHour ? <FaSun /> : <FaMoon />}
-        <span>DARK HOUR {darkHour ? 'ON' : 'OFF'}</span>
-      </button>
     </>
   );
 }

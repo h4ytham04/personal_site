@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGraduationCap, FaHammer, FaSuitcase, FaFile, FaStar } from 'react-icons/fa';
 import "./career.css";
@@ -107,32 +107,12 @@ function Career() {
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const sittingRef = useRef(null);
-  const [isSittingExpanded, setIsSittingExpanded] = useState(false);
 
   // entrance animation kicks in one tick after mount
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
     return () => clearTimeout(t);
   }, []);
-
-  // measures the portrait's current spot and computes the translate/scale needed to land it centered and large
-  const toggleSittingExpand = () => {
-    const el = sittingRef.current;
-    if (!el) return;
-
-    if (!isSittingExpanded) {
-      const rect = el.getBoundingClientRect();
-      const targetWidth = Math.min(window.innerWidth * 0.75, 650);
-      const scale = targetWidth / rect.width;
-      const dx = window.innerWidth / 2 - (rect.left + rect.width / 2);
-      const dy = window.innerHeight / 2 - (rect.top + rect.height / 2);
-      el.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
-    } else {
-      el.style.transform = '';
-    }
-    setIsSittingExpanded((v) => !v);
-  };
 
   useEffect(() => {
      const handleNavigation = (e) => {
@@ -151,8 +131,7 @@ function Career() {
     
     // 3. Handle Back/Escape (Only applies to keyboard events)
     if (e.key === 'Escape' || e.key === 'Backspace') {
-      if (isSittingExpanded) toggleSittingExpand();
-      else navigate('/');
+      navigate('/');
     }
   };
 
@@ -165,7 +144,7 @@ function Career() {
     window.removeEventListener('keydown', handleNavigation);
     window.removeEventListener('wheel', handleNavigation);
   };
-}, [isSittingExpanded, CAREER_ITEMS.length]);
+}, [CAREER_ITEMS.length]);
 
   useSwipe(
     () => setActive((i) => Math.max(0, i - 1)),
@@ -178,6 +157,7 @@ function Career() {
   const isExperienceActive = CAREER_ITEMS[active].id === 'experience';
   const isSkillsActive = CAREER_ITEMS[active].id === 'skills';
   const isResearchActive = CAREER_ITEMS[active].id === 'research';
+  const isStatsActive = CAREER_ITEMS[active].id === 'stats';
 
   return (
     <div className="career-page">
@@ -288,18 +268,9 @@ function Career() {
           <span><b>ESC</b> BACK</span>
         </div>
 
-        <div
-          className={`career-dim-backdrop${isSittingExpanded ? ' active' : ''}`}
-          onClick={toggleSittingExpand}
-        />
-
-        <img
-          ref={sittingRef}
-          src={haytham_sitting}
-          alt="Haytham sitting on a cliff at sunset"
-          className={`haytham_sitting${mounted ? ' haytham_sitting--visible' : ''}${isSittingExpanded ? ' haytham_sitting--expanded' : ''}`}
-          onClick={toggleSittingExpand}
-        />
+        <div className={`career-edu-emblem career-edu-emblem--center${isStatsActive && mounted ? ' career-edu-emblem--visible' : ''}`}>
+          <img src={haytham_sitting} alt="Haytham sitting on a cliff at sunset" className="career-edu-emblem-img career-edu-emblem-img--portrait" />
+        </div>
 
       </div>
     </div>

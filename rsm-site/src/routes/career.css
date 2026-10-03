@@ -338,47 +338,6 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-
-.haytham_sitting {
-  position: absolute;
-  bottom: 4vh;
-  left: 2.8vw;
-  max-width: min(30vw, 320px);
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  cursor: pointer;
-  z-index: 10;
-  transition: opacity 0.9s ease, box-shadow 300ms ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.haytham_sitting--visible {
-  opacity: 1;
-}
-.haytham_sitting--expanded {
-  z-index: 50;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75);
-}
-.haytham_sitting:not(.haytham_sitting--expanded):hover {
-  transform: scale(1.06);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 45px 12px rgba(71, 65, 244, 0.65);
-}
-
-.career-dim-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  background: rgba(0, 0, 0, 0);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease, background-color 0.4s ease;
-}
-.career-dim-backdrop.active {
-  background: rgba(0, 0, 0, 0.75);
-  opacity: 1;
-  pointer-events: auto;
-}
-
 /* ship + psu badges stacked together (psu above ship), only shown while the education card is selected \
    have to also add if statement if stacking more than 2 images, adjust the gap accordingly and make images smaller */
    
@@ -422,6 +381,19 @@
 
 .career-edu-emblem:has(.career-edu-emblem-img:nth-child(n+3)) {
   gap: 25px;
+}
+
+.career-edu-emblem--center {
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+}
+
+.career-edu-emblem-img--portrait {
+  max-width: 18vw;
+  max-height: 60vh;
+  width: auto;
+  border-radius: 12px;
 }
 
 
@@ -579,6 +551,7 @@
     display: flex;
     position: relative;
     left: auto;
+    top: auto;
     bottom: auto;
     order: 3;
     transform: none;
@@ -588,15 +561,6 @@
   }
   .career-edu-emblem-img {
     max-width: 28vw !important;
-  }
-
-  .haytham_sitting {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    order: 4;
-    max-width: 60vw;
-    margin: 0 auto;
   }
 
   .career-hints {
